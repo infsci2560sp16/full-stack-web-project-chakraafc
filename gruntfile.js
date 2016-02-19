@@ -29,43 +29,6 @@ module.exports = function(grunt) {
           module: true
         }
       }
-    },
-    watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['jshint', 'qunit']
-    },
-    concat: {
-      options: {
-        separator: ';'
-      },
-      dist: {
-        src: ['<%= srcFolder %>/public/js/**/*.js'],
-        dest: '<%= distFolder %>/public/js/<%= pkg.name %>.js'
-      }
-    },
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-      },
-      dist: {
-        files: {
-          '<%= distFolder %>/public/js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
-        }
-      }
-    },
-    qunit: {
-      files: ['<%= testFolder %>/public/**/*.html']
-    },
-    cssmin: {
-      target: {
-        files: [{
-          expand: true,
-          cwd: '<%= srcFolder %>/',
-          src: ['public/stylesheets/**/*.css', '!public/stylesheets/**/*.min.css'],
-          dest: '<%= distFolder %>',
-          ext: '.min.css'
-        }]
-      }
     }
   });
 
