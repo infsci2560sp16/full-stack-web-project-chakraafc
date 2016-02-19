@@ -15,10 +15,10 @@ function employeeValidation()
 	var emailreg= /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,6}$/;
 	var alphareg=/^[A-Za-z]+$/;
 	var alphanum= /^[0-9a-zA-Z]+$/;
-	
-	
-	
-	if(firstname!="" && lastname!="" && address!="" && city!="" && state!=""&& country!="" && zipcode!="" && employeeid!="" && email!="")
+
+
+
+	if(firstname!=="" && lastname!=="" && address!=="" && city!=="" && state!==""&& country!=="" && zipcode!=="" && employeeid!=="" && email!=="")
 	{
 		if(email.match(emailreg))
 		{
@@ -31,12 +31,12 @@ function employeeValidation()
 					  if(pass.length>=6 && pass.length<=20)
 					  {
 						alert("data suceessfully validated");
-			            return true;  
+			            return true;
 					  }
 					  else
 					  {
 						alert("password must contain 6 to 20 character");
-                       return false;						
+                       return false;
 					  }
 				  }
 				  else
@@ -44,21 +44,21 @@ function employeeValidation()
 					alert("password cannot be matched");
 					return false;
 				  }
-				
+
 				}
 				else
 				{
 				alert("enter a valid emp id");
 				return false;
 				}
-			
+
 			}
 			else{
 				alert("enter a valid first name");
 				return false;
 			}
-		}	
-		
+		}
+
 		else{
 			alert("enter a valid email");
 			return false;
@@ -68,5 +68,5 @@ function employeeValidation()
 		alert("all fields are required");
 		return false;
 	}
-	
+
 }
