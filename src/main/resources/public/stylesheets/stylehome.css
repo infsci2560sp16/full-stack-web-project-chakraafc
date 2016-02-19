@@ -1,5 +1,6 @@
 <style>
 
+<<<<<<< HEAD
 #header {
     padding:1px; 
 	
@@ -8,10 +9,21 @@
     line-height:50px;
     background-color:sienna;
     height:1180px;
+=======
+header {
+    padding:5px; 
+	
+}
+nav {
+    line-height:30px;
+    background-color:grey;
+    height:700px;
+>>>>>>> c80b564707f7cb61bfaa9d724689ff877d793e4a
     width:250px;
     float:left;
     padding:20px;	      
 }
+<<<<<<< HEAD
 #section {
     width:1000px;
 	background-color:grey;
@@ -28,12 +40,34 @@
 	width:300px;
 }
 #footer {
+=======
+section {
+    width:1000px;
+	background-color:skyblue;
+    float:left;
+    padding:10px;
+    height:720px;	
+}
+aside {
+
+	background-color:grey;
+    float:left;
+    padding:10px;
+    height:720px;	
+	width:300px;
+}
+footer {
+>>>>>>> c80b564707f7cb61bfaa9d724689ff877d793e4a
     background-color:black;
     color:white;
     clear:both;
     text-align:center;
     padding:10px;	
+<<<<<<< HEAD
     width:1610px;	
+=======
+width:1610px;	
+>>>>>>> c80b564707f7cb61bfaa9d724689ff877d793e4a
 }
 
 </style>
