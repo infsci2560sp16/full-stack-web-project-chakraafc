@@ -49,6 +49,8 @@ public class Main {
             String jobAtIdeal = formatter.format();
             
             System.out.println(jobAtIdeal);
+            System.out.println(admin);
+            
             
             attributes.put("technology", technology);
             attributes.put("healthworker", healthworker);
