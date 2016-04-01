@@ -109,7 +109,25 @@ Pennsylvania and Cuyahoga, Lorain, Lake, Summit, Portage, Star,Franklin, Delawar
   following counties:Allegheny, Westmoreland, Washington,Butler, Beaver in
   Pennsylvania and Cuyahoga, Lorain, Lake, Summit, Portage, Star,Franklin, Delaware,
    Fairfield, Hamilton, Butler, Clermont in Ohio<p><br><br>
-     <h3<a href="#"><br>looking for job</a></h3>
+<h3<a href="#"><br>looking for job${jobAtIdeal}</a></h3>
+
+<#if jobAtIdeal == "Technology"|| jobAtIdeal == "HealthCare"||>
+
+        <#list 0..technologys?size-1 as i>
+        <h4>${healthworker[i]}</h4>
+        </#list>
+
+       <#elseif jobAtIdeal== "HumanResources">
+       <#list 0..admin?size-1 as i>
+       <h4>${admin[i]}</h4>
+       </#list>
+
+        <#else>
+        <#list 0..technology?size-1 as i>
+        <h4>${admin[i]}</h4>
+        </#list>
+
+        </#if>
 
 </div>
 

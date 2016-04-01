@@ -21,6 +21,58 @@ public class Main {
     staticFileLocation("/public");
 
     get("/hello", (req, res) -> "Hello World");
+    
+    //ftl
+    get("/index", (req, res) -> {
+            Map<String, Object> attributes = new HashMap<>();
+            
+
+            ArrayList<String> technology= new ArrayList<String>();
+            technology.add("DBA");
+            technology.add("web developer");
+            technology.add("network admin");
+            technology.add("data analyst");
+            
+            ArrayList<String> healthworker= new ArrayList<String>();
+            healthworker.add("CNA");
+            healthworker.add("Register Nurse");
+            healthworker.add("house keeping");
+            healthworker.add("health assistant");
+            
+            ArrayList<String> admin= new ArrayList<String>();
+            admin.add("HR manager");
+            admin.add("accountant");
+            admin.add("branch manager");
+            admin.add("tech manager");
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("EEEE");
+            String jobAtIdeal = formatter.format();
+            
+            System.out.println(jobAtIdeal);
+            
+            attributes.put("technology", technology);
+            attributes.put("healthworker", healthworker);
+            attributes.put("admin", admin);
+            attributes.put("jobAtIdeal", jobAtIdeal);
+            
+            return new ModelAndView(attributes, "index.ftl");
+    } , new FreeMarkerEngine());
+            
+            
+            
+            
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
