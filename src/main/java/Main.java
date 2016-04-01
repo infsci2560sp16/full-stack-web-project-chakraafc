@@ -23,7 +23,7 @@ public class Main {
     get("/hello", (req, res) -> "Hello World");
     
     //ftl
-    get("/index", (req, res) -> {
+    get("/index1", (req, res) -> {
             Map<String, Object> attributes = new HashMap<>();
             
 
@@ -55,7 +55,7 @@ public class Main {
             attributes.put("admin", admin);
             attributes.put("jobAtIdeal", jobAtIdeal);
             
-            return new ModelAndView(attributes, "index.ftl");
+            return new ModelAndView(attributes, "index1.ftl");
     } , new FreeMarkerEngine());
             
             
