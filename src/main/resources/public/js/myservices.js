@@ -1,4 +1,40 @@
 
+window.onload = init;
+
+$(function(){
+        $("#submit").click(function(){
+
+        var firstname= $("#firstname").val();
+				var lastname = $("#lastname").val();
+        var address = $("#address").val();
+        var city = $("#city").val();
+        var state =$("#state").val();
+				var zipcode =$("#zipcode").val();
+				var country=$("country").val();
+				var employeeid =$("#employeeid").val();
+				var email =$("#email").val();
+				var pass =$("#pass").val();
+
+        var obj = JSON.stringify({"firstname":firstname,"lastname":lastname,
+																	"address":address,"city":city,"state":state,
+																	"zipcode":zipcode,"country":country,"employeeid":employeeid,"email":email,"pass":pass});
+              $.ajax({
+                  contentType:'application/json',
+                  url: '/register',
+                  type: "POST",
+                  datatype: "json",
+                  data: obj,
+                  success: function(data) {
+                      alert("Welcome! You have registered successfully!");
+                      window.location.href='/index1.html';
+											console.log(data);
+                  }
+              });
+                    return false;
+          });
+   });
+
+
 function employeeValidation()
 {
 	var firstname= document.getElementById("firstname").value;
