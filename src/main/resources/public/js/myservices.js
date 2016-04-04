@@ -26,14 +26,16 @@ $(function(){
                   data: obj,
                   success: function(data) {
                       alert("Welcome! You have registered successfully!");
-                      window.location.href='/index1.html';
+                      window.location.href='/eservices.html';
 											console.log(data);
                   }
               });
                     return false;
           });
    });
-
+	 function init() {
+	 	setControls();
+	 }
 
 function employeeValidation()
 {
