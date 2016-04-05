@@ -7,6 +7,42 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"  lang="en" >
 <link rel="stylesheet" type="text/css" href="../stylesheets/stylehome.css">
 
+<style>
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}
+</style>
+<script>
+function loadXMLDoc() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      myFunction(xmlhttp);
+    }
+  };
+  xmlhttp.open("GET", "../webpages/userdata.xml" , false);
+  xmlhttp.send();
+}
+
+function myFunction(xml) {
+  var x, i, xmlDoc, table;
+  xmlDoc = xml.responseXML;
+  table = "<tr><th>POSITION</th><th>EMPLOYEE_TYPE</th></tr>";
+  x = xmlDoc.getElementsByTagName("CD")
+  for (i = 0; i < x.length; i++) {
+    table += "<tr><td>" +
+    x[i].getElementsByTagName("POSITION")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("EMPLOYEE_TYPE")[0].childNodes[0].nodeValue +
+    "</td></tr>";
+
+  document.getElementById("demo").innerHTML = table;
+}
+</script>
 
 
 </head>
@@ -29,7 +65,15 @@
   <div id="section">
   <h1>LOGIN  SUCESSFULL</h1>
 
+  <p><button onclick="loadXMLDoc()">clich here to get employee bonus and salry based on position and experience</button></p>
+
+
+
+
+
   </div>
+
+
   <div id ="aside">
 
   </div>

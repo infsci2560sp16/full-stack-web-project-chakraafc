@@ -26,7 +26,7 @@ $(function(){
                   data: obj,
                   success: function(data) {
                       alert("Welcome! You have registered successfully!");
-                      window.location.href='/eservices.html';
+                      window.location.href='index1.html';
 											console.log(data);
                   }
               });
