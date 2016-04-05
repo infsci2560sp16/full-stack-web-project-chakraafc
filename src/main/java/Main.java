@@ -159,7 +159,7 @@ public class Main {
 
 
   //GET XML
-    get("/title", (req, res) -> {
+    get("api/forum", (req, res) -> {
 
         Connection connection = null;
         // res.type("application/xml"); //Return as XML
@@ -180,7 +180,7 @@ public class Main {
 						  xml += "<lastname>"+rs.getString("lastname")+"</lastname>";
 						  xml += "<address>"+rs.getString("address")+"</address>";
 						  xml += "<employeeid>"+rs.getString("employeeid")+"</employeeid>";
-						  xml += "<country>"+rs.getString("country")+"</description>";
+
 					    xml += "</thread>";
             }
             xml += "</form>";
