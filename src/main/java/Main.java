@@ -1,11 +1,10 @@
 import com.google.gson.Gson;
-import org.json.JSONObject;
+
 import java.sql.*;
-import java.util.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Date;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Map;
+import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,19 +14,17 @@ import spark.template.freemarker.FreeMarkerEngine;
 import spark.ModelAndView;
 import static spark.Spark.get;
 
+import static javax.measure.unit.SI.KILOGRAM;
+import javax.measure.quantity.Mass;
+import org.jscience.physics.model.RelativisticModel;
+import org.jscience.physics.amount.Amount;
+
+import static javax.measure.unit.SI.KILOGRAM;
+import javax.measure.quantity.Mass;
+import org.jscience.physics.model.RelativisticModel;
+import org.jscience.physics.amount.Amount;
+
 import com.heroku.sdk.jdbc.DatabaseUrl;
-import spark.Request;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-
 
 public class Main {
 
@@ -36,7 +33,124 @@ public class Main {
     port(Integer.valueOf(System.getenv("PORT")));
     staticFileLocation("/public");
 
+    Gson gson = new Gson();
+
     get("/hello", (req, res) -> "Hello World");
+
+    get("/", (request, response) -> {
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("message", "Hello World!");
+
+            return new ModelAndView(attributes, "index.ftl");
+        }, new FreeMarkerEngine());
+
+    get("/db", (req, res) -> {
+      Connection connection = null;
+      Map<String, Object> attributes = new HashMap<>();
+      try {
+        connection = DatabaseUrl.extract().getConnection();
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+        stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+        ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+
+        ArrayList<String> output = new ArrayList<String>();
+        while (rs.next()) {
+          output.add( "Read from DB: " + rs.getTimestamp("tick"));
+        }
+
+        attributes.put("results", output);
+        return new ModelAndView(attributes, "db.ftl");
+      } catch (Exception e) {
+        attributes.put("message", "There was an error: " + e);
+        return new ModelAndView(attributes, "error.ftl");
+      } finally {
+        if (connection != null) try{connection.close();} catch(SQLException e){}
+      }
+    }, new FreeMarkerEngine());
+
+
+    post("/adduser",(req,res)->
+
+        {
+
+          Connection connection = null;
+          Map<String, Object> attributes = new HashMap<>();
+          try{
+          connection = DatabaseUrl.extract().getConnection();
+
+          JSONObject obj = new JSONObject(req.body());
+
+
+          String firstname = obj.getString("register-fname");
+          String lastname = obj.getString("register-lastname");
+          String address = obj.getString("register-address");
+          String city = obj.getString("register-city");
+          String state = obj.getString("register-state");
+          String zipcode = obj.getString("register-zipcode");
+          String employeeid = obj.getString("register-employeeid");
+          String email = obj.getString("register-email");
+          String pass = obj.getString("register-password");
+
+
+         Statement stmt = connection.createStatement();
+         stmt.executeUpdate("CREATE TABLE IF NOT EXISTS userdata (user_fname varchar(100),  user_lname  varchar(30),  user_address  varchar(100), user_city varchar(30), user_state varchar(30), user_zipcode varchar(10), user_employeeid varchar(5), user_email varchar(100), user_pass varchar(30) )");
+
+         stmt.executeUpdate("INSERT INTO userdata(user_fname, user_lname, user_address, user_city, user_state, user_zipcode, user_employeeid, user_email, user_pass)" +
+                  "VALUES('" + firstname+ "', '" + lastname + "','" + address + "','" + city + "','" + state + "','" + zipcode + "','" + employeeid + "','" + email + "' ,'" + pass+"')");
+         return req.body();
+         } catch (Exception e) {
+           System.err.println("Exception: "+ e);
+            return e.getMessage();
+         } finally {
+          if (connection != null) try{connection.close();} catch(SQLException e){}
+        }});
+
+
+
+        get("/api/salary", (req, res) -> {
+
+                   Map<String, Object> data = new HashMap<>();
+                   data.put("experience","salary estimate");
+                   data.put("from3to5yrs", "6k-7k");
+                   data.put("from0to1yrs", "1k-2k");
+                   data.put("from4to10yrs ", "8k-10k");
+                   return data;
+               }, gson::toJson);
+
+
+               get("/api/info", (req, res ) ->
+                   {
+                     Map<String, Object> data = new HashMap<>();
+                     data.put("username","Smith");
+                     String xml= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                 "<customer>"+
+                                 "<user_profile>" +
+                                         "<ProductName>Air Froce 1</ProductName>"+
+                                         "<January>100</January>"+
+                                         "<Febuary>200</Febuary>"+
+                                         "<March>300</March>"+
+                                 "</user_profile>"+
+                                 "<user_profile>" +
+                                         "<ProductName>KOBE XI</ProductName>"+
+                                         "<January>312</January>"+
+                                         "<Febuary>1333</Febuary>"+
+                                         "<March>433</March>"+
+                                 "</user_profile>"+
+                                 "<user_profile>" +
+                                         "<ProductName>Lebron XIII</ProductName>"+
+                                         "<January>4324</January>"+
+                                         "<Febuary>41</Febuary>"+
+                                         "<March>5454</March>"+
+                                 "</user_profile>"+
+                                 "</customer>";
+                     res.type("text/xml");
+                     return xml;
+                   });
+
+  }
+
+}
 
     //ftl
     /* get("/index1", (req, res) -> {
@@ -74,7 +188,7 @@ public class Main {
             attributes.put("jobAtIdeal", jobAtIdeal);
 
             return new ModelAndView(attributes, "index1.ftl");
-    } , new FreeMarkerEngine()); */
+    } , new FreeMarkerEngine());
 
    Gson gson = new Gson();
     //GET JSON
@@ -129,13 +243,12 @@ public class Main {
           String city = obj.getString("city");
           String state = obj.getString("state");
           String zipcode = obj.getString("zipcode");
-          String country = obj.getString("country");
+
           String employeeid = obj.getString("employeeid");
           String email = obj.getString("email");
           String pass = obj.getString("pass");
           String sql = "INSERT INTO employeedata VALUES ('"+ firstname + "','" + lastname + "','"
-          + address + "','" + city + "','"+ state + "','" + zipcode + "','" + country + "','"
-        		  + employeeid + "','" + email + "',' "+ pass +" ')";
+          + address + "','" + city + "','"+ state + "','" + zipcode + "','"+ employeeid + "','" + email + "',' "+ pass +" ')";
 
           connection = DatabaseUrl.extract().getConnection();
           Statement stmt = connection.createStatement();
@@ -162,7 +275,7 @@ public class Main {
     get("api/forum", (req, res) -> {
 
         Connection connection = null;
-        // res.type("application/xml"); //Return as XML
+        res.type("application/xml"); //Return as XML
 
         Map<String, Object> attributes = new HashMap<>();
         try {
@@ -173,7 +286,7 @@ public class Main {
 
 
             String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-            xml += "<form xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:SchemaLocation=\"form.xsd\">";
+            xml += "<form xmlns:xsi=\"http://www.w3.org/2001/XMLSchema\" xsi:SchemaLocation=\"form.xsd\">";
             while (rs.next()) {
             xml += "<thread>";
 						  xml += "<firstname>"+rs.getString("firstname")+"</firstname>";
@@ -194,39 +307,4 @@ public class Main {
             if (connection != null) try{connection.close();} catch(SQLException e){}
         }
       });//End /form
-
-    get("/", (request, response) -> {
-            Map<String, Object> attributes = new HashMap<>();
-            attributes.put("message", "Hello World!");
-
-            return new ModelAndView(attributes, "index.ftl");
-        }, new FreeMarkerEngine());
-
-    get("/db", (req, res) -> {
-      Connection connection = null;
-      Map<String, Object> attributes = new HashMap<>();
-      try {
-        connection = DatabaseUrl.extract().getConnection();
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-        stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-        ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-
-        ArrayList<String> output = new ArrayList<String>();
-        while (rs.next()) {
-          output.add( "Read from DB: " + rs.getTimestamp("tick"));
-        }
-
-        attributes.put("results", output);
-        return new ModelAndView(attributes, "db.ftl");
-      } catch (Exception e) {
-        attributes.put("message", "There was an error: " + e);
-        return new ModelAndView(attributes, "error.ftl");
-      } finally {
-        if (connection != null) try{connection.close();} catch(SQLException e){}
-      }
-    }, new FreeMarkerEngine());
-
-  }
-
-}
+*/

@@ -1,41 +1,38 @@
+$(document).ready(function() {
+	$('#submit').click(function()
+  {
 
-window.onload = init;
+        var firstname = document.getElementById("firstname").value;
+        var lastname = document.getElementById("lastname").value;
+        var address = document.getElementById("address").value;
+        var city = document.getElementById("city").value;
+        var state = document.getElementById("state").value;
+        var zipcode = document.getElementById("zipcode").value;
+        var employeeid = document.getElementById("employeeid").value;
+        var email = document.getElementById("email").value;
+        var pass = document.getElementById("pass").value;
 
-$(function(){
-        $("#submit").click(function(){
 
-        var firstname= $("#firstname").val();
-				var lastname = $("#lastname").val();
-        var address = $("#address").val();
-        var city = $("#city").val();
-        var state =$("#state").val();
-				var zipcode =$("#zipcode").val();
-				var country=$("country").val();
-				var employeeid =$("#employeeid").val();
-				var email =$("#email").val();
-				var pass =$("#pass").val();
 
-        var obj = JSON.stringify({"firstname":firstname,"lastname":lastname,
-																	"address":address,"city":city,"state":state,
-																	"zipcode":zipcode,"country":country,"employeeid":employeeid,"email":email,"pass":pass});
-              $.ajax({
-                  contentType:'application/json',
-                  url: '/register',
-                  type: "POST",
-                  datatype: "json",
-                  data: obj,
-                  success: function(data) {
-                      alert("Welcome! You have registered successfully!");
-                      window.location.href='index1.html';
-											console.log(data);
-                  }
-              });
-                    return false;
-          });
-   });
-	 function init() {
-	 	setControls();
-	 }
+
+         var send= JSON.stringify({ "register-fname": firstname , "register-lastname": lastname , "register-address": address, "register-city":city, "register-state": state,
+         "register-zipcode":zipcode, "register-employeeid":employeeid, "register-email": email, "register-password":pass});
+      $.ajax({
+          contentType:'application/json',
+          url:"/adduser",
+          type:"POST",
+          datatype: "json",
+          data: send,
+          success: function(data)
+          {
+            alert("succeeded");
+            window.location.href='/user_info';
+         }
+
+        });
+    }
+  );
+
 
 function employeeValidation()
 {
@@ -45,7 +42,7 @@ function employeeValidation()
 	var address= document.getElementById("address").value;
 	var city= document.getElementById("city").value;
 	var state= document.getElementById("state").value;
-	var country= document.getElementById("country").value;
+
 	var zipcode= parseInt(document.getElementById("zipcode").value);
 	var employeeid= document.getElementById("employeeid").value;
 	var pass=document.getElementById("pass").value;
@@ -56,7 +53,7 @@ function employeeValidation()
 
 
 
-	if(firstname!=="" && lastname!=="" && address!=="" && city!=="" && state!==""&& country!=="" && zipcode!=="" && employeeid!=="" && email!=="")
+	if(firstname!=="" && lastname!=="" && address!=="" && city!=="" && state!=="" && zipcode!=="" && employeeid!=="" && email!=="")
 	{
 		if(email.match(emailreg))
 		{

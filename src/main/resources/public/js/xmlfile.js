@@ -1,20 +1,27 @@
-window.onload = browseThread;
-function browseThread () {
-	$.ajax({
-		url : "/api/forum",
-		type : "get",
-		success : function(result) {
-			$("#inv").html("");
-			console.log(result);//Testing
-			threads = result.getElementsByTagName("thread");
-			for ( var i = 0; i < threads.length; i++) {
-        $("div#demos").append('<div class="edemo" id="demo1">'+
-
-        		    									'<h4>Title:'+'<a href="#">'+threads[i].childNodes[0].firstChild.nodeValue+'</a></h4>'+
-        													'<p>Firstname:'+threads[i].childNodes[1].firstChild.nodeValue+'|Lastname:'+threads[i].childNodes[2].firstChild.nodeValue+'</p>'+
-                                  '<p>Address:'+threads[i].childNodes[3].firstChild.nodeValue+'</p>'+
-        	        								'<p>EmployeeId:'+threads[i].childNodes[4].firstChild.nodeValue+'</p>'+'</div>');
-			}
-		}
+$(document).ready(function() {
+	jQuery.ajax({
+	  url: '/api/info',
+	  type: 'GET',
+	  dataType: 'xml',
+	  complete: function(xhr, textStatus) {
+	    //called when complete
+	  },
+	  success: function(xml) {
+	  	    $(xml).find('user_profile').each(function(index, el) {
+	   		var lastname = $(this).children('ProductName').text();
+	   		var firstname = $(this).children('January').text();
+	   		var ssn = $(this).children('Febuary').text();
+	   		var gender = $(this).children('March').text();
+	   		var ta = $('#content').find('table');
+	   		var tr = $('<tr></tr>').appendTo(ta);
+	   		$('<td></td>').text(lastname).appendTo(tr);
+	   		$('<td></td>').text(firstname).appendTo(tr);
+	   		$('<td></td>').text(ssn).appendTo(tr);
+	   		$('<td></td>').text(gender).appendTo(tr);
+	   });
+	  },
+	  error: function(xhr, textStatus, errorThrown) {
+	    alert("error");
+	  }
 	});
-}
+	
