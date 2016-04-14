@@ -16,6 +16,8 @@ $(document).ready(function() {
 	  		$('<td></td>').text(result1.from3to5yrs).appendTo(tr);
 	  		$('<td></td>').text(result1.from0to1yrs).appendTo(tr);
 	  		$('<td></td>').text(result1.from4to10yrs).appendTo(tr);
+				$('<td></td>').text(result1.salary_estimate).appendTo(tr);
+	  	
 
 	  },
 	  error: function(xhr, textStatus, errorThrown) {

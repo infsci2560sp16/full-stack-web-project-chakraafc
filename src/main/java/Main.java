@@ -111,7 +111,7 @@ public class Main {
         get("/api/salary", (req, res) -> {
 
                    Map<String, Object> data = new HashMap<>();
-                   data.put("experience","salary estimate");
+                   data.put("experience","salary_estimate");
                    data.put("from3to5yrs", "6k-7k");
                    data.put("from0to1yrs", "1k-2k");
                    data.put("from4to10yrs ", "8k-10k");
