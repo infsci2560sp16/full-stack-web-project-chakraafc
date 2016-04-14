@@ -12,12 +12,11 @@ $(document).ready(function() {
 	  	var result1=data;
 	  		var ta = $('#content').find('table');
 	   		var tr = $('<tr></tr>').appendTo(ta);
-	   		$('<td></td>').text(result1.experience).appendTo(tr);
-	  		$('<td></td>').text(result1.from3to5yrs).appendTo(tr);
-	  		$('<td></td>').text(result1.from0to1yrs).appendTo(tr);
-	  		$('<td></td>').text(result1.from4to10yrs).appendTo(tr);
-				$('<td></td>').text(result1.salary_estimate).appendTo(tr);
-	  	
+	   		$('<td></td>').text(result1.experience).appendTo(th);
+	  		$('<td></td>').text(result1.from3to5yrs).appendTo(th);
+	  		$('<td></td>').text(result1.from0to1yrs).appendTo(th);
+	  		$('<td></td>').text(result1.from4to10yrs).appendTo(th);
+			
 
 	  },
 	  error: function(xhr, textStatus, errorThrown) {
