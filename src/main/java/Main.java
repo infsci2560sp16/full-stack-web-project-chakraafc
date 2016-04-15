@@ -115,7 +115,17 @@ public class Main {
             return data;
           }, gson::toJson);
 
-
+          get("/contact", (request, response) -> {
+               Map<String, Object> attributes = new HashMap<>();
+               attributes.put("title","Contact information");
+               attributes.put("name", "Tillie");
+               attributes.put("address", "734 broughton street PA15213");
+               attributes.put("email", "tingli1101376@gmail.com");
+               attributes.put("phone", "4123764519");
+               attributes.put("delivery", "yes");
+               attributes.put("contact", "phone");
+               return new ModelAndView(attributes, "contact.ftl");
+             }, new FreeMarkerEngine());
       /*  get("/api/salary", (req, res) -> {
 
                    Map<String, Object> data = new HashMap<>();
