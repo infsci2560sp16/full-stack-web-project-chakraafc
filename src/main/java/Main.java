@@ -106,17 +106,25 @@ public class Main {
           if (connection != null) try{connection.close();} catch(SQLException e){}
         }});
 
+        get("/api/detail/info", (req, res) -> {
+            Map<String, Object> data = new HashMap<>();
+            data.put("description", "This is a awesome product. Good for study");
+            data.put("price", "$40");
+            data.put("offer", "Delivery Offered");
+            data.put("contact", "Tillie");
+            return data;
+          }, gson::toJson);
 
 
-        get("/api/salary", (req, res) -> {
+      /*  get("/api/salary", (req, res) -> {
 
                    Map<String, Object> data = new HashMap<>();
-                   data.put("experience","salary_estimate");
+                   data.put("experience","salary estimate");
                    data.put("from3to5yrs", "6k-7k");
                    data.put("from0to1yrs", "1k-2k");
                    data.put("from4to10yrs ", "8k-10k");
                    return data;
-               }, gson::toJson);
+               }, gson::toJson); */
 
 
                get("/api/info", (req, res ) ->

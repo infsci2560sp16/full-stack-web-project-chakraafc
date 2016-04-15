@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 
 
@@ -16,7 +17,7 @@ $(document).ready(function() {
 	  		$('<td></td>').text(result1.from3to5yrs).appendTo(th);
 	  		$('<td></td>').text(result1.from0to1yrs).appendTo(th);
 	  		$('<td></td>').text(result1.from4to10yrs).appendTo(th);
-			
+
 
 	  },
 	  error: function(xhr, textStatus, errorThrown) {
