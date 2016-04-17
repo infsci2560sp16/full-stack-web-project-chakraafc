@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Creating an Account </title>
+		
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+
+		<script>
+		function pregister() {
+		//  alert("XXXXXXXsuccessfully accepted");
+			var firstname = $("#firstname").val();
+			var lastname = $("#lastname").val();
+			var username = $("#username").val();
+			var password = $("#password").val();
+			var confpassword = $("#confpassword").val();
+			var email = $("#email").val();
+		  alert("XXXXXXX successfully accepted"+ firstname + "  " + lastname+ "  " + username+ "  " + password + "  "+ email);
+
+		  var obj = JSON.stringify("firstname":firstname,"lastname":lastname,"username":username,"password":password,"confpassword":confpassword,"email":email);
+
+		  $.ajax({
+		                   contentType:'application/json',
+		                   url: "/api/register",
+		                   type: "post",
+		                   datatype: "json",
+		                   data: obj,
+		                   success: function(data) {
+		                       alert("Welcome! You have registered successfully!");
+		                       //window.location.href='/index.html';
+		 											console.log(data);
+		                   }
+		               });
+		}
+
+		  </script>
+
+	</head>
+	<body>
+
+		<p>Create an account</p>
+		<form>
+				<table class="t2">
+					<tr>
+            <td>First name:</td>
+  					<td><input type="text" id="firstname" name="firstname" size="30" required/></td>
+					</tr>
+					<tr>
+              <td>Last name:</td>
+    					<td><input type="text" id="lastname" name="lastname" size="30" required/></td>
+					</tr>
+					<tr>
+            <td>Username(6-8 characters):</td>
+						<td><input type="text" id="username" name="username" size="30" required/></td>
+					</tr>
+
+					<tr>
+						<td>Password:</td>
+						<td><input type="password" id="password" name="password" size="30" required/></td>
+
+					</tr>
+					<tr>
+              <td>Confirm Password:</td>
+              <td><input type="password" id="confpassword" name="confpassword" size="30" required/></td>
+						</tr>
+
+					<tr>
+                <td>Email:</td>
+      					<td><input type="text" id="email" name="email" size="30" required/></td>
+					</tr>
+
+					<tr>
+			         <td><input type="reset" id="reset" class="button4" name="reset"></td>
+               <td><input type="submit" id="submit" class="button5" name="submit" value="Create Account"  onclick= "pregister()"></td>
+
+					</tr>
+
+			 </table>
+		</form>
+  </body>
+  </html>

@@ -1,4 +1,4 @@
-
+/*
 $(document).ready(function() {
 
 
@@ -61,3 +61,4 @@ $(document).ready(function() {
   			200);
   	});
   });
+*/

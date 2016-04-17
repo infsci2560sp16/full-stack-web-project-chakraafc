@@ -1,70 +1,51 @@
-
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
+        <title>GetJson_and_XML</title>
+        <meta charset="UTF-8">
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
-  <title>javaScript AJAX</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"  lang="en" >
-  <script>
-              $(function () {
-                  $("#header").load("header.html");
-              });
-              $(function () {
-                $.ajax({
-                  url: "/api/detail/info",
-                  success: function (result) {
-                    var data = JSON.parse(result);
-                    $(".pro_detail_right p").html(data.description);
-                    $(".price").html(data.price);
-                    $(".offer").html(data.offer);
-                    $("#add-to-cart a").html(data.contact);
-                  }});
-                });
-          </script>
-</head>
-<body>
-
-        <div id="header"></div>
-        <div id="content" class="global_module">
-            <div class="product--title">
-                <h2>Table for Sale</h2>
-            </div>
-            <div class="pro_detail">
-                <div class="pro_detail_left">
-                    <span>
-                        <img alt="" src="images/ads/2.jpeg" />
-                    </span>
-                </div>
-
-                <div class="pro_detail_right">
-                    <h1>Item Description</h1>
-                    <p></p>
-                    <div class="product_price">
-                        Price: <span class="price"></span>
-                        <span class="offer"></span>
-                    </div>
-                    <div id="add-to-cart">
-                         <button class="btn btn_cart">Mark it!</button>
-                        <div><a href="/contact"></a></div>
-                    </div>
-                </div>
-                <!-- <script>
-                    $(function () {
-                        $.ajax({
-                            url: "/api/xml",
-                            success: function (result) {
-                              // Append "RSS Title" to #someElement
-                              $( ".pro_detail_right p" ).html($(result).find("Category").text());
-                        }});
-                    });
-                </script> -->
-
-            </div>
-        </div>
-    </body>
-</html>
-
-<!--<button onclick="loadAJAX();">Load</button>
-<div id="update"></div>
-<script src="..js/getjson.js" </script>
--->
+        <script>
+      function getJson() {
+          $.ajax({
+            url : "/stocks",
+            success : function(result) {
+              var users = JSON.parse(result);
+              for ( var i = 0; i < users.length; i++) {
+                $("div.users").append(
+                  '<p class="stocknames" id="' + users[i].id + '">' + users[i].name + '</p>' + '<br/>'
+                );
+              }
+            }
+          });
+        }
+        function getXml () {
+		        $.ajax({
+			           url : "/about",
+                 type : "get",
+                 success : function(result) {
+                   person = result.getElementsByTagName("Branch");
+                   $("div.about").append(
+	        	           '<p>FirstName:'+person[0].childNodes[0].firstChild.nodeValue+'</p>'+
+	        	           '<p>LastName:'+person[0].childNodes[1].firstChild.nodeValue+'</p>'+
+	        	           '<p>Street:'+person[0].childNodes[2].firstChild.nodeValue+'</p>'+
+                       '<p>Country:'+person[0].childNodes[3].firstChild.nodeValue+'</p>'+
+                       '<p>State:'+person[0].childNodes[4].firstChild.nodeValue+'</p>'+
+                       '<p>City:'+person[0].childNodes[5].firstChild.nodeValue+'</p>'+
+                       '<p>Status:'+person[0].childNodes[6].firstChild.nodeValue+'</p>'+
+                       '<p>Phone:'+person[0].childNodes[7].firstChild.nodeValue+'</p>'+
+                       '<p>Email:'+person[0].childNodes[8].firstChild.nodeValue+'</p>'
+                     );
+                   }
+                 });
+               }
+        </script>
+    </head>
+    <body>
+      <input type="button" value="Stocks selected" onclick="getJson()">
+        <div class="users"></div>
+        <input type="button" value="Personal Details" onclick="getXml()">
+        <div class="about"></div>
+      </body>
+      </html>
