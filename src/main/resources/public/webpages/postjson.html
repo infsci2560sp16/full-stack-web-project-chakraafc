@@ -29,7 +29,7 @@
 		                   data: obj,
 		                   success: function(data) {
 		                       alert("Welcome! You have registered successfully!");
-		                       window.location.href='/sucesspage.html';
+		                       window.location.href='/time_sheet.html';
 		 											console.log(data);
 		                   }
 		               });
@@ -58,7 +58,7 @@
 
 
 		<p>Create an account</p>
-		<form method="post">
+		<form  action="time_sheet.html"   method="post" onsubmit="return pregister()">
 				<table class="t2">
 					<tr>
             <td>First name:</td>
