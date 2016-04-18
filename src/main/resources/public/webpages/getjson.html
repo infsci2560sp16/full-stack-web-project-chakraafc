@@ -20,32 +20,12 @@
             }
           });
         }
-        function getXml () {
-		        $.ajax({
-			           url : "/about",
-                 type : "get",
-                 success : function(result) {
-                   person = result.getElementsByTagName("Branch");
-                   $("div.about").append(
-	        	           '<p>FirstName:'+person[0].childNodes[0].firstChild.nodeValue+'</p>'+
-	        	           '<p>LastName:'+person[0].childNodes[1].firstChild.nodeValue+'</p>'+
-	        	           '<p>Street:'+person[0].childNodes[2].firstChild.nodeValue+'</p>'+
-                       '<p>Country:'+person[0].childNodes[3].firstChild.nodeValue+'</p>'+
-                       '<p>State:'+person[0].childNodes[4].firstChild.nodeValue+'</p>'+
-                       '<p>City:'+person[0].childNodes[5].firstChild.nodeValue+'</p>'+
-                       '<p>Status:'+person[0].childNodes[6].firstChild.nodeValue+'</p>'+
-                       '<p>Phone:'+person[0].childNodes[7].firstChild.nodeValue+'</p>'+
-                       '<p>Email:'+person[0].childNodes[8].firstChild.nodeValue+'</p>'
-                     );
-                   }
-                 });
-               }
-        </script>
-    </head>
+
+    </script>
+  </head>
     <body>
       <input type="button" value="user info" onclick="getJson()">
-        <div class="users"></div><br><br><br><br><br>
-        <input type="button" value="user Details"  onclick="getXml()">
-        <div class="about"></div>
+        <div class="users"></div>
+
       </body>
       </html>
