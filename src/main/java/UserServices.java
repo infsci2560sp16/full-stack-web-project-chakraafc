@@ -4,8 +4,11 @@ import java.util.List;
 public class UserServices {
 	private List<User> users = new ArrayList<User>();
 			UserServices(){
-		users.add(new User("1","Vanguard U.S. Total Stock Market Index ETF (VTI)"));
-		users.add(new User("2","Vanguard US Large-Cap Value Index ETF (VTV)"));
+		users.add(new User("761","SYSTEM ADMISNISTRATOR"));
+		users.add(new User("276","DBA"));
+			users.add(new User("776","WEB-DEVELOPER"));
+				users.add(new User("976","register-Nurse"));
+					users.add(new User("278","REGIONAL-MANAGER "));
 	}
 
 

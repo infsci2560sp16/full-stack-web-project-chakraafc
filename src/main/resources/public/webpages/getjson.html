@@ -3,18 +3,19 @@
     <head>
         <title>GetJson_and_XML</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../stylesheets/stylehome.css">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
         <script>
       function getJson() {
           $.ajax({
-            url : "/stocks",
+            url : "/users",
             success : function(result) {
               var users = JSON.parse(result);
               for ( var i = 0; i < users.length; i++) {
                 $("div.users").append(
-                  '<p class="stocknames" id="' + users[i].id + '">' + users[i].name + '</p>' + '<br/>'
+                  '<p class="usernames" id="' + users[i].id + '">' + users[i].name + '</p>' + '<br/>'
                 );
               }
             }
@@ -23,8 +24,28 @@
     </script>
   </head>
     <body>
-      <input type="button" value="user info" onclick="getJson()">
-        <div class="users"></div>
+    
 
-      </body>
+    <div id="nav">
+    <a href="index1.html">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="eservices.html">E-SERVICES</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="services.html">SERVICES</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="aboutus.html">ABOUT-US</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="contact.html">CONTACT-US</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="career.html">CAREER</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+    </div>
+<div id="section">
+  <input type="button" value="job title list with job number" onclick="getJson()">
+    <div class="users"></div>
+
+</div>
+
+<div id="footer">
+<p> copyright  &copy; chn38@pitt.edu </p>
+</div>
+
+</body>
       </html>
